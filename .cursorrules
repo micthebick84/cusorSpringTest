@@ -1,0 +1,104 @@
+# Spring Boot 프로젝트 Cursor Rules
+
+## 프로젝트 구조 및 설정
+- Spring Boot 프로젝트는 표준 Maven/Gradle 디렉토리 구조를 따릅니다
+- `src/main/java`: 메인 Java 소스 코드
+- `src/main/resources`: 설정 파일, 정적 리소스
+- `src/main/webapp`: 웹 리소스 (JSP 등)
+- `src/test/java`: 테스트 코드
+- `pom.xml` (Maven) 또는 `build.gradle` (Gradle) 파일이 프로젝트 루트에 있어야 합니다
+
+## 빌드 및 실행 명령어
+
+### Maven 기반 프로젝트
+```bash
+# 프로젝트 컴파일
+mvn compile
+
+# 테스트 실행
+mvn test
+
+# 패키지 생성 (JAR/WAR)
+mvn package
+
+# Spring Boot 애플리케이션 실행
+mvn spring-boot:run
+
+# 의존성 다운로드
+mvn dependency:resolve
+
+# 클린 빌드
+mvn clean install
+
+# Maven Wrapper 사용 (권장)
+./mvnw spring-boot:run
+./mvnw clean install
+```
+
+### Gradle 기반 프로젝트
+```bash
+# 프로젝트 빌드
+./gradlew build
+
+# 테스트 실행
+./gradlew test
+
+# Spring Boot 애플리케이션 실행
+./gradlew bootRun
+
+# 의존성 확인
+./gradlew dependencies
+
+# 클린 빌드
+./gradlew clean build
+
+# Gradle Wrapper 사용 (권장)
+./gradlew bootRun
+./gradlew clean build
+```
+
+## 개발 환경 설정
+
+### Java 버전
+- Spring Boot 2.7.x: Java 8-17 지원
+- Spring Boot 3.x: Java 17+ 필요
+- `JAVA_HOME` 환경변수가 올바르게 설정되어야 합니다
+
+### IDE 설정
+- IntelliJ IDEA, Eclipse, VS Code 등 지원
+- Spring Boot DevTools 의존성 추가 권장 (자동 재시작)
+- JSP 사용 시 `tomcat-embed-jasper` 의존성 필요
+
+## 일반적인 문제 해결
+
+### Maven 관련
+- `JAVA_HOME` 환경변수 확인
+- Maven Wrapper 사용 권장 (`mvnw` 또는 `mvnw.cmd`)
+- `.m2/repository` 캐시 삭제 후 재시도
+
+### Gradle 관련
+- Gradle Wrapper 사용 권장 (`gradlew` 또는 `gradlew.bat`)
+- `GRADLE_HOME` 환경변수 설정 (선택사항)
+- `.gradle` 캐시 삭제 후 재시도
+
+### Spring Boot 관련
+- 포트 충돌 시 `application.properties`에서 `server.port` 변경
+- 로그 레벨 조정: `logging.level.root=INFO`
+- 프로파일 설정: `spring.profiles.active=dev`
+
+## 프로젝트 실행 확인
+- 애플리케이션 시작 후 로그에서 "Started Application" 메시지 확인
+- 기본적으로 `http://localhost:8080` (또는 설정된 포트)에서 접근
+- Actuator 엔드포인트: `http://localhost:8080/actuator/health`
+
+## 개발 팁
+- `spring-boot-devtools` 의존성으로 자동 재시작 활성화
+- `@SpringBootTest` 어노테이션으로 통합 테스트 작성
+- `application-dev.properties` 등 환경별 설정 파일 활용
+- 로깅 설정으로 개발 시 디버깅 정보 확인
+
+## 의존성 관리
+- Spring Boot Starter 의존성 사용 권장
+- 버전 충돌 시 `spring-boot-dependencies` BOM 활용
+- Maven: `<dependencyManagement>` 섹션 활용
+- Gradle: `dependencyManagement` 플러그인 사용
