@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -57,6 +56,32 @@ public class MainController {
         
         model.addAttribute("user", user);
         return "main";
+    }
+
+    // 메뉴 페이지 - JavaScript에서 직접 외부 API 호출
+    @GetMapping("/menu")
+    public String menuPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            // 로그인되지 않은 사용자는 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+        
+        model.addAttribute("user", user);
+        return "menu";
+    }
+
+    // 통계 및 보고서 페이지
+    @GetMapping("/stats")
+    public String statsPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            // 로그인되지 않은 사용자는 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
+        
+        model.addAttribute("user", user);
+        return "stats";
     }
 
     // 로그아웃
